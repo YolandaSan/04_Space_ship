@@ -41,3 +41,6 @@ class Enemy_manager:
         # se agrega a la lista de enemigos en la ultima
         # posicion el objeto enemy
         self.enemies.append(enemy)
+
+    def reset(self):
+        self.enemies = []

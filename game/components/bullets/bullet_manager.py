@@ -8,11 +8,13 @@ class Bullet_manager:
         self.player_bullets = []
 
     def update(self, game):
+
         for bullet in self.enemy_bullets:
             bullet.update(self.enemy_bullets)
 
             if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
                 self.enemy_bullets.remove(bullet)
+                game.death_count += 1
                 game.playing = False
                 pygame.time.delay(1000)
                 break
@@ -37,13 +39,18 @@ class Bullet_manager:
                     ## con el metodo pop pasandole la posición de la nave decimos que nave queremos eliminar
                     ## de la lista enemies
                     game.enemy_manager.enemies.pop(0)
+                    game.update_score()
                     self.player_bullets.remove(bullet)
                 elif bullet.rect.colliderect(game.enemy_manager.enemies[1].rect) :
                     game.enemy_manager.enemies.pop(1)
+                    game.update_score()
                     self.player_bullets.remove(bullet)
                 elif bullet.rect.colliderect(game.enemy_manager.enemies[2].rect) :
                     game.enemy_manager.enemies.pop(2)
+                    game.update_score()
                     self.player_bullets.remove(bullet)
+         
+            
 
      ## Creamos el metodo validar lista del enemigo existente, que recibe 
      ## por parametro los enemigos

@@ -81,6 +81,6 @@ class Spaceship(Sprite):
             ## como parametro el objeto bullet
             bullet_manager.add_bullet_player(bullet)
             ## Se llama la variable tiempo de disparo y le 
-            ## asigno un numero random entre el 20 y el 50
+            ## asigna un numero random entre el 20 y el 50
             self.shooting_time += random.randint(20,50)
 

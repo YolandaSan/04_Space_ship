@@ -15,6 +15,8 @@ SHIELD = pygame.image.load(os.path.join(IMG_DIR, 'Other/shield.png'))
 
 BG = pygame.image.load(os.path.join(IMG_DIR, 'Other/Track.png'))
 
+GAMEOVER = pygame.image.load(os.path.join(IMG_DIR, 'Other/GameOver.png'))
+
 HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 
 DEFAULT_TYPE = "default"
