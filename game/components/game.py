@@ -26,6 +26,8 @@ class Game:
         self.bullet_manager = Bullet_manager()
         self.running = False
         self.score = 0
+        ## se creo una nueva variable que es el puntaje mas alto 
+        self.score_total = 0
         self.death_count = 0
         self.menu = Menu('Press any key to start...', self.screen)
 
@@ -103,7 +105,14 @@ class Game:
             ## si el numero de muertes es diferente de 0
             ## se pinta el menu de game over
             ##actualiza el mensaje
-            self.menu.update_message('Score = {}  -  total deaths = {}'.format(self.score, self.death_count))
+
+            ##si score total es  menor o igual al score obtenido en partida 
+            if self.score_total <= self.score:
+                ##El score total ahora es score que obtuvo en la partida 
+                ## ej : score total es 0 y el score obtenido es 3 score total ahora es 3 
+                self.score_total = self.score
+
+            self.menu.update_message('Score = {}  -  total deaths = {}  -  highest score = {}'.format(self.score, self.death_count,  self.score_total))
             ## se pinta le mensaje
             self.menu.draw(self.screen)
             ## se crea una variable icon con la imagen y tamaños 
