@@ -6,6 +6,7 @@ from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager  import Enemy_manager 
 from game.components.bullets.bullet_manager import Bullet_manager
 from game.components.menu import Menu
+from game.components.power_ups.power_up_manager import Power_up_manager
 
 
 class Game:
@@ -30,6 +31,7 @@ class Game:
         self.score_total = 0
         self.death_count = 0
         self.menu = Menu('Press any key to start...', self.screen)
+        self.power_up_manager = Power_up_manager()
 
     def execute(self):
         self.running = True
@@ -48,6 +50,9 @@ class Game:
             self.events()
             self.update()
             self.draw()
+
+    def reset(self):
+        self.power_up_manager.reset()
      
 
                  
@@ -64,6 +69,7 @@ class Game:
         self.bullet_manager.update(self)
         ## Se hace el llamado del metodo actualizar jugador
         self.bullet_manager.update_player(self)
+        self.power_up_manager.update(self)
 
     def draw(self):
         self.clock.tick(FPS)
@@ -76,6 +82,8 @@ class Game:
         ## Se hace el llamado del metodo dibujar jugador
         self.bullet_manager.draw_player(self.screen)
         self.draw_score()
+        self.power_up_manager.draw(self.screen)
+        self.draw_power_up_time()
         pygame.display.update()
         pygame.display.flip()
 
@@ -89,6 +97,16 @@ class Game:
             self.screen.blit(image, (self.x_pos_bg, self.y_pos_bg - image_height))
             self.y_pos_bg = 0
         self.y_pos_bg = self.y_pos_bg + self.game_speed
+
+    def draw_power_up_time(self):
+        if self.player.has_power_up:
+            time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/ 10000, 2)
+            if time_to_show >=0:
+                self.menu.draw(self.screen, f'{self.player.power_up_type.capitalize()}is enabled for{time_to_show} in seconds', 500,50,(255,255,255))
+            else:
+                self.player.has_power_up = False
+                self.player.power_time_up = DEFAULT_TYPE
+                self.player.set_image()
 
     def show_menu(self):
         self.menu.reset_screen_color(self.screen)

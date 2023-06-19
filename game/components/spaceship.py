@@ -3,7 +3,7 @@ import pygame
 import random
 
 from pygame.sprite import Sprite
-from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import SPACESHIP, SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_TYPE
 
 from game.components.bullets.bullet import Bullet
 
@@ -23,6 +23,10 @@ class Spaceship(Sprite):
         ## Creamos una variable de tipo de nave
         ## que guarda Player
         self.type = 'player'
+        self.has_power_up = False
+        self.power_time_up = 0
+        self.power_up_type = DEFAULT_TYPE
+
 
     ## Se modifica el metodo update, se le 
     ## agrega el parametro game
@@ -84,3 +88,7 @@ class Spaceship(Sprite):
             ## asigna un numero random entre el 20 y el 50
             self.shooting_time += random.randint(20,50)
 
+
+    def set_image(self, size = (40, 60), image = SPACESHIP):
+        self.image = image 
+        self.image = pygame.transform.scale(self.image, size)
